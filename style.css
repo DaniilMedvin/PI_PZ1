@@ -2,9 +2,11 @@
   --bg: #e0e5ec;
   --shadow-light: #ffffff;
   --shadow-dark: #a3b1c6;
-  --text: #2f3a4a;
-  --muted: #566274;
+  --text: #3d4859;
+  --muted: #5a6577;
   --accent: #4338ca;
+  --result-a: #6a4ff0;
+  --result-b: #0e8fa8;
   --danger: #b42318;
   --radius: 20px;
   --raised: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
@@ -21,6 +23,8 @@
     --text: #e8ebf0;
     --muted: #aab2bf;
     --accent: #a5b4fc;
+    --result-a: #c4b5fd;
+    --result-b: #7dd3e8;
     --danger: #ff9b90;
   }
 }
@@ -35,7 +39,8 @@ body {
   padding: 24px 16px;
   background: var(--bg);
   color: var(--text);
-  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font: 400 16px/1.6 "Nunito", "Segoe UI Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .card {
@@ -83,6 +88,10 @@ input[type="number"] {
   box-shadow: var(--inset);
   transition: box-shadow var(--t);
 }
+/* прибираємо стандартні стрілочки */
+input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 input[type="number"]::placeholder { color: var(--muted); opacity: .8; }
 input[aria-invalid="true"] { outline: 2px solid var(--danger); }
 
@@ -118,10 +127,15 @@ input[aria-invalid="true"] { outline: 2px solid var(--danger); }
   font-weight: 700;
   cursor: pointer;
   box-shadow: var(--raised-sm);
-  transition: box-shadow var(--t);
+  transition: box-shadow 300ms ease-out, transform 300ms ease-out, letter-spacing 300ms ease-out;
   touch-action: manipulation;
 }
-.btn:active { box-shadow: var(--inset); }
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 9px 9px 18px var(--shadow-dark), -9px -9px 18px var(--shadow-light);
+  letter-spacing: .02em;
+}
+.btn:active { transform: translateY(0); box-shadow: var(--inset); transition-duration: 120ms; }
 
 /* результат */
 .result {
@@ -132,18 +146,48 @@ input[aria-invalid="true"] { outline: 2px solid var(--danger); }
   text-align: center;
 }
 .result[hidden] { display: none; }
+.result.show { animation: result-in 500ms cubic-bezier(.22, 1, .36, 1) both; }
+.result.show .result-value { animation: value-in 600ms 150ms cubic-bezier(.22, 1, .36, 1) both; }
+
+@keyframes result-in {
+  from { opacity: 0; transform: translateY(16px) scale(.98); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes value-in {
+  from { opacity: 0; transform: scale(.92); }
+  to   { opacity: 1; transform: none; }
+}
 .result-label { margin: 0; color: var(--muted); }
 .result-value {
   margin: 4px 0;
   font-size: 2rem;
   font-weight: 800;
-  color: var(--accent);
+  color: var(--result-a);
   font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
 }
 .result-note { margin: 0 0 16px; color: var(--muted); font-size: .9rem; }
 
-.table-wrap { max-height: 240px; overflow: auto; }
+.table-wrap {
+  max-height: 240px;
+  overflow: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--shadow-dark) transparent;
+}
+.table-wrap::-webkit-scrollbar { width: 10px; }
+.table-wrap::-webkit-scrollbar-track {
+  margin: 6px 0;
+  border-radius: 10px;
+  background: var(--bg);
+  box-shadow: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light);
+}
+.table-wrap::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--result-a), var(--result-b));
+  border: 2px solid var(--bg);
+}
+.table-wrap::-webkit-scrollbar-thumb:hover { filter: brightness(1.1); }
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: .9rem; }
 th, td { padding: 8px 6px; text-align: right; }
 th:first-child, td:first-child { text-align: center; }
@@ -151,5 +195,6 @@ thead th { position: sticky; top: 0; background: var(--bg); color: var(--muted);
 tbody tr + tr td { border-top: 1px solid color-mix(in srgb, var(--shadow-dark) 35%, transparent); }
 
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
+  * { transition: none !important; animation: none !important; }
+  .btn:hover { transform: none; letter-spacing: normal; }
 }

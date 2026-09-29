@@ -20,10 +20,10 @@ function validate() {
   const years = Number(yearsEl.value);
 
   const priceOk = setError(priceEl,
-    !isFinite(price) || price <= 0 ? 'Введіть вартість більше нуля.' : '');
+    !isFinite(price) || price <= 0 ? 'Вкажіть, будь ласка, вартість більшу за нуль.' : '');
   const yearsOk = setError(yearsEl,
     yearsEl.value === '' || !Number.isInteger(years) || years < 0 || years > MAX_YEARS
-      ? `Введіть ціле число років від 0 до ${MAX_YEARS}.` : '');
+      ? `Вкажіть, будь ласка, ціле число років від 0 до ${MAX_YEARS}.` : '');
 
   if (!priceOk) priceEl.focus();
   else if (!yearsOk) yearsEl.focus();
@@ -51,7 +51,7 @@ form.addEventListener('submit', (e) => {
   const { residual, rows } = calculate(data.price, data.years, rate);
 
   residualEl.textContent = money.format(residual);
-  noteEl.textContent = `Знецінення за ${data.years} р. при ${rate * 100}% на рік: ${money.format(data.price - residual)}`;
+  noteEl.textContent = `За ${data.years} р. при ${rate * 100}% на рік авто втратить у вартості близько ${money.format(data.price - residual)}`;
   rowsEl.replaceChildren(...rows.map(r => {
     const tr = document.createElement('tr');
     [r.year, money.format(r.depreciation), money.format(r.value)].forEach(v => {
@@ -62,6 +62,10 @@ form.addEventListener('submit', (e) => {
     return tr;
   }));
   resultEl.hidden = false;
+  // перезапуск анімації появи при кожному новому розрахунку
+  resultEl.classList.remove('show');
+  void resultEl.offsetWidth;
+  resultEl.classList.add('show');
 });
 
 [priceEl, yearsEl].forEach(el => el.addEventListener('input', () => setError(el, '')));

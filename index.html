@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Залишкова вартість автомобіля</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,24 +16,23 @@
         <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M3 13l2-6a2 2 0 0 1 1.9-1.4h10.2A2 2 0 0 1 19 7l2 6v4a1 1 0 0 1-1 1h-1a2 2 0 0 1-4 0H9a2 2 0 0 1-4 0H4a1 1 0 0 1-1-1z"/><path d="M3 13h18"/></svg>
       </div>
       <h1>Залишкова вартість автомобіля</h1>
-      <p class="sub">Розрахунок з урахуванням амортизації</p>
     </header>
 
     <form id="form" novalidate>
       <div class="field">
-        <label for="price">Початкова вартість, грн</label>
+        <label for="price">З якої вартості починаємо, грн</label>
         <input id="price" type="number" inputmode="decimal" min="0" step="any" placeholder="Наприклад, 500000" aria-describedby="price-err" required>
         <p class="error" id="price-err" role="alert"></p>
       </div>
 
       <div class="field">
-        <label for="years">Термін експлуатації, років</label>
+        <label for="years">Скільки років ви користуєтесь авто</label>
         <input id="years" type="number" inputmode="numeric" min="0" step="1" placeholder="Наприклад, 5" aria-describedby="years-err" required>
         <p class="error" id="years-err" role="alert"></p>
       </div>
 
       <fieldset class="field">
-        <legend>Норма амортизації на рік</legend>
+        <legend>Обираємо щорічне знецінення</legend>
         <div class="rates">
           <input type="radio" name="rate" id="r5" value="5" checked>
           <label for="r5">5%</label>
@@ -41,11 +43,11 @@
         </div>
       </fieldset>
 
-      <button type="submit" class="btn">Розрахувати</button>
+      <button type="submit" class="btn">Порахувати</button>
     </form>
 
     <section id="result" class="result" aria-live="polite" hidden>
-      <p class="result-label">Залишкова вартість</p>
+      <p class="result-label">Ось скільки, ймовірно, коштуватиме ваше авто</p>
       <p class="result-value" id="residual"></p>
       <p class="result-note" id="note"></p>
       <div class="table-wrap">
