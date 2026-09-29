@@ -20,19 +20,19 @@
 
     <form id="form" novalidate>
       <div class="field">
-        <label for="price">З якої вартості починаємо, грн</label>
+        <label for="price">Початкова вартість автомобіля, грн</label>
         <input id="price" type="number" inputmode="decimal" min="0" step="any" placeholder="Наприклад, 500000" aria-describedby="price-err" required>
         <p class="error" id="price-err" role="alert"></p>
       </div>
 
       <div class="field">
-        <label for="years">Скільки років ви користуєтесь авто</label>
+        <label for="years">Термін експлуатації, років</label>
         <input id="years" type="number" inputmode="numeric" min="0" step="1" placeholder="Наприклад, 5" aria-describedby="years-err" required>
         <p class="error" id="years-err" role="alert"></p>
       </div>
 
       <fieldset class="field">
-        <legend>Обираємо щорічне знецінення</legend>
+        <legend>Відсоток амортизації на рік</legend>
         <div class="rates">
           <input type="radio" name="rate" id="r5" value="5" checked>
           <label for="r5">5%</label>
@@ -47,7 +47,7 @@
     </form>
 
     <section id="result" class="result" aria-live="polite" hidden>
-      <p class="result-label">Ось скільки, ймовірно, коштуватиме ваше авто</p>
+      <p class="result-label">Залишкова вартість</p>
       <p class="result-value" id="residual"></p>
       <p class="result-note" id="note"></p>
       <div class="table-wrap">

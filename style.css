@@ -137,7 +137,6 @@ input[aria-invalid="true"] { outline: 2px solid var(--danger); }
 }
 .btn:active { transform: translateY(0); box-shadow: var(--inset); transition-duration: 120ms; }
 
-/* результат */
 .result {
   margin-top: 32px;
   padding: 24px 16px;

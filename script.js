@@ -20,17 +20,16 @@ function validate() {
   const years = Number(yearsEl.value);
 
   const priceOk = setError(priceEl,
-    !isFinite(price) || price <= 0 ? 'Вкажіть, будь ласка, вартість більшу за нуль.' : '');
+    !isFinite(price) || price <= 0 ? 'Вкажіть вартість більшу за нуль.' : '');
   const yearsOk = setError(yearsEl,
     yearsEl.value === '' || !Number.isInteger(years) || years < 0 || years > MAX_YEARS
-      ? `Вкажіть, будь ласка, ціле число років від 0 до ${MAX_YEARS}.` : '');
+      ? `Вкажіть ціле число років від 0 до ${MAX_YEARS}.` : '');
 
   if (!priceOk) priceEl.focus();
   else if (!yearsOk) yearsEl.focus();
   return priceOk && yearsOk ? { price, years } : null;
 }
 
-// Метод спадного залишку: V(n) = V0 * (1 - r)^n
 function calculate(price, years, rate) {
   const rows = [];
   let value = price;
@@ -62,7 +61,6 @@ form.addEventListener('submit', (e) => {
     return tr;
   }));
   resultEl.hidden = false;
-  // перезапуск анімації появи при кожному новому розрахунку
   resultEl.classList.remove('show');
   void resultEl.offsetWidth;
   resultEl.classList.add('show');
