@@ -30,7 +30,6 @@ function validate() {
   return priceOk && yearsOk ? { price, years } : null;
 }
 
-// Метод спадного залишку: V(n) = V0 * (1 - r)^n
 function calculate(price, years, rate) {
   const rows = [];
   let value = price;
@@ -62,7 +61,6 @@ form.addEventListener('submit', (e) => {
     return tr;
   }));
   resultEl.hidden = false;
-  // перезапуск анімації появи при кожному новому розрахунку
   resultEl.classList.remove('show');
   void resultEl.offsetWidth;
   resultEl.classList.add('show');
