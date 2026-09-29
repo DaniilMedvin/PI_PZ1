@@ -50,7 +50,7 @@ form.addEventListener('submit', (e) => {
   const { residual, rows } = calculate(data.price, data.years, rate);
 
   residualEl.textContent = money.format(residual);
-  noteEl.textContent = `За ${data.years} р. при ${rate * 100}% на рік авто втратить у вартості близько ${money.format(data.price - residual)}`;
+  noteEl.textContent = `Сума амортизації за ${data.years} р. (${rate * 100}% на рік): ${money.format(data.price - residual)}`;
   rowsEl.replaceChildren(...rows.map(r => {
     const tr = document.createElement('tr');
     [r.year, money.format(r.depreciation), money.format(r.value)].forEach(v => {
