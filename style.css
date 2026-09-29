@@ -88,7 +88,7 @@ input[type="number"] {
   box-shadow: var(--inset);
   transition: box-shadow var(--t);
 }
-/* прибираємо стандартні стрілочки */
+
 input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
@@ -99,7 +99,6 @@ input[aria-invalid="true"] { outline: 2px solid var(--danger); }
 
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
-/* переключатель ставки */
 .rates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .rates input { position: absolute; opacity: 0; pointer-events: none; }
 .rates label {
@@ -137,7 +136,6 @@ input[aria-invalid="true"] { outline: 2px solid var(--danger); }
 }
 .btn:active { transform: translateY(0); box-shadow: var(--inset); transition-duration: 120ms; }
 
-/* результат */
 .result {
   margin-top: 32px;
   padding: 24px 16px;
